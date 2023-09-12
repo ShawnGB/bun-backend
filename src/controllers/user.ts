@@ -1,9 +1,5 @@
 import { prisma } from '../lib/prisma';
 
-// interface IdParams {
-//   id: string;
-// }
-
 interface UserRequestBody {
   firstName: string;
   lastName: string;
@@ -19,7 +15,6 @@ const getAllUsers = async () => {
 
 const getUser = async (id: string) => {
   if (!id) return;
-
   const user = await prisma.user.findUnique({
     where: {
       id,
@@ -42,34 +37,33 @@ const createUser = async (userBody: UserRequestBody) => {
   return user;
 };
 
-// const updateUser = async (request: FastifyRequest) => {
-//   const { id, firstName, lastName, email } = request.body as UserRequestBody;
+const updateUser = async (id: string, userBody: UserRequestBody) => {
+  const { firstName, lastName, email } = userBody;
 
-//   const user = await prisma.user.update({
-//     where: {
-//       id,
-//     },
-//     data: {
-//       firstName,
-//       lastName,
-//       email,
-//     },
-//   });
+  const user = await prisma.user.update({
+    where: {
+      id,
+    },
+    data: {
+      firstName,
+      lastName,
+      email,
+    },
+  });
 
-//   return user;
-// };
+  return user;
+};
 
-// const deleteUser = async (request: FastifyRequest<{ Params: IdParams }>) => {
-//   const { id } = request.params;
-//   if (!id) return;
+const deleteUser = async (id: string) => {
+  if (!id) return;
 
-//   const user = await prisma.user.delete({
-//     where: {
-//       id,
-//     },
-//   });
+  const user = await prisma.user.delete({
+    where: {
+      id,
+    },
+  });
 
-//   return user;
-// };
+  return user;
+};
 
-export { getAllUsers, getUser, createUser };
+export { getAllUsers, getUser, createUser, updateUser, deleteUser };
