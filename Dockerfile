@@ -7,7 +7,7 @@ COPY bun.lockb .
 COPY prisma prisma
 
 RUN bun install --production
-RUN npx prisma generate
+RUN bunx prisma generate
 
 
 COPY src src
