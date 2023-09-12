@@ -4,8 +4,11 @@ WORKDIR /app
 
 COPY package.json .
 COPY bun.lockb .
+COPY prisma prisma
 
 RUN bun install --production
+RUN npx prisma generate
+
 
 COPY src src
 COPY tsconfig.json .
