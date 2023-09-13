@@ -9,7 +9,7 @@ COPY bun.lockb .
 
 # Install production dependencies using bun
 RUN bun install --production
-RUN bun install --prisma
+RUN npm install -g prisma
 
 # Copy the source code from your local machine to the working directory
 COPY src src
