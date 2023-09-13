@@ -1,19 +1,21 @@
-FROM oven/bun
+# syntax = docker/dockerfile:1
+
+# Adjust BUN_VERSION as desired
+ARG BUN_VERSION=1.0.0
+FROM oven/bun:${BUN_VERSION}
 
 WORKDIR /app
 
-COPY package.json .
-COPY bun.lockb .
-COPY prisma .
+# Install node modules
+COPY --link package.json bun.lockb ./
+RUN bun install
 
-RUN bun install --production
+# Copy application code
+COPY --link . .
 
-COPY src src
-COPY tsconfig.json .
-
+# Generate Prisma Client <-- Fails here
 RUN bun x prisma generate
 
-ENV NODE_ENV production
-CMD ["bun", "src/index.ts"]
-
 EXPOSE 3000
+
+CMD [ "bun", "index.ts" ]
