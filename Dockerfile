@@ -12,6 +12,8 @@ COPY src src
 COPY tsconfig.json .
 # COPY public public
 
+RUN bunx prisma generate
+
 ENV NODE_ENV production
 CMD ["bun", "src/index.ts"]
 
