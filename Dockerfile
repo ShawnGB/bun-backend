@@ -1,21 +1,25 @@
-# syntax = docker/dockerfile:1
-
-# Adjust BUN_VERSION as desired
-ARG BUN_VERSION=1.0.0
-FROM oven/bun:${BUN_VERSION}
+FROM oven/bun
 
 WORKDIR /app
 
-# Install node modules
-COPY --link package.json bun.lockb ./
-RUN bun install
+COPY package.json .
+COPY bun.lockb .
+COPY prisma .
 
-# Copy application code
-COPY --link . .
+RUN bun install --production
+ARG NODE_VERSION=18
+RUN curl -L https://raw.githubusercontent.com/tj/n/master/bin/n -o n \
+    && bash n $NODE_VERSION \
+    && rm n \
+    && npm install -g n
 
-# Generate Prisma Client <-- Fails here
-RUN bun x prisma generate
+COPY src src
+COPY tsconfig.json .
+# COPY public public
+
+RUN bunx prisma generate
+
+ENV NODE_ENV production
+CMD ["bun", "src/index.ts"]
 
 EXPOSE 3000
-
-CMD [ "bun", "src/index.ts" ]
