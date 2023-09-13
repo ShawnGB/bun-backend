@@ -6,14 +6,12 @@ COPY package.json .
 COPY bun.lockb .
 COPY prisma .
 
-RUN bun install
-RUN bun install @prisma/cli
+RUN bun install --production
 
 COPY src src
 COPY tsconfig.json .
-# COPY public public
 
-RUN bunx prisma generate
+RUN bun x prisma generate
 
 ENV NODE_ENV production
 CMD ["bun", "src/index.ts"]
