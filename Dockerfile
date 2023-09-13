@@ -9,14 +9,14 @@ COPY bun.lockb .
 
 # Install production dependencies using bun
 RUN bun install --production
-RUN bunx prisma generate
-
 
 # Copy the source code from your local machine to the working directory
 COPY src src
 COPY tsconfig.json .
 COPY prisma prisma
 # COPY public public  # You can uncomment this line if you have a "public" directory
+
+RUN bunx prisma generate
 
 ENV NODE_ENV production
 
