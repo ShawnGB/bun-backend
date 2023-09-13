@@ -13,7 +13,7 @@ RUN bun install --production
 # Copy the source code from your local machine to the working directory
 COPY src src
 COPY tsconfig.json .
-COPY prisma prisma
+COPY prisma ./prisma/
 # COPY public public  # You can uncomment this line if you have a "public" directory
 
 RUN bunx prisma generate
