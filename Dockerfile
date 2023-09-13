@@ -6,7 +6,8 @@ COPY package.json .
 COPY bun.lockb .
 COPY prisma .
 
-RUN bun install --production
+RUN bun install
+RUN bun install @prisma/cli
 
 COPY src src
 COPY tsconfig.json .
