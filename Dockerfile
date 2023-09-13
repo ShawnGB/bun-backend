@@ -1,27 +1,31 @@
-FROM oven/bun
+FROM debian:11.6-slim as builder
 
-# Set the working directory to /app
 WORKDIR /app
 
-# Copy package.json and bun.lock to the working directory
+RUN apt update
+RUN apt install curl unzip -y
+
+RUN curl https://bun.sh/install | bash
+
 COPY package.json .
 COPY bun.lockb .
 
-# Install production dependencies using bun
-RUN bun install --production
+RUN /root/.bun/bin/bun install --production
 
-# Copy the source code from your local machine to the working directory
+# ? -------------------------
+FROM gcr.io/distroless/base
+
+WORKDIR /app
+
+COPY --from=builder /root/.bun/bin/bun bun
+COPY --from=builder /app/node_modules node_modules
+
 COPY src src
 COPY tsconfig.json .
 COPY prisma prisma
-# COPY public public  # You can uncomment this line if you have a "public" directory
-
-
+# COPY public public
 
 ENV NODE_ENV production
+CMD ["./bun", "src/index.ts"]
 
-# Define the command to run your application
-CMD ["bun", "src/index.ts"]
-
-# Expose port 3000 (assuming your application listens on this port)
 EXPOSE 3000
