@@ -25,12 +25,14 @@ const getUser = async (id: string) => {
 
 const createUser = async (userBody: UserRequestBody) => {
   const { firstName, lastName, email, password } = userBody;
+
+  const hash = await Bun.password.hash(password);
   const user = await prisma.user.create({
     data: {
       firstName,
       lastName,
       email,
-      password,
+      password: hash,
     },
   });
 
