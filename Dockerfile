@@ -14,7 +14,8 @@ RUN --mount=type=secret,id=_env,dst=/etc/secrets/.env cat /etc/secrets/.env
 COPY src src
 COPY tsconfig.json .
 COPY prisma prisma
-COPY /etc/secrets/.env ./
+RUN --mount=type=secret,id=_env,dst=/etc/secrets/.env cp /etc/secrets/.env .env
+
 
 # COPY public public
 
