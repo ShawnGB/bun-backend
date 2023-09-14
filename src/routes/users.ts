@@ -27,16 +27,17 @@ const users = new Elysia().group('users', (app) =>
       }),
     })
 
-    // // update a user
-    // .patch('/:id', ({ params: { id }, body }) => updateUser(id, body), {
-    //   body: t.Object({
-    //     firstName: t.String(),
-    //     lastName: t.String(),
-    //     email: t.String(),
-    //     password: t.String(),
-    //     username: t.String(),
-    //   }),
-    // })
+    // update a user
+    .patch('/:id', ({ params: { id }, body }) => updateUser(id, body), {
+      body: t.Object({
+        firstName: t.Optional(t.String()),
+        lastName: t.Optional(t.String()),
+        email: t.Optional(t.String()),
+        userName: t.Optional(t.String()),
+        summary: t.Optional(t.String()),
+        profileImage: t.Optional(t.String()),
+      }),
+    })
 
     // delete a user
     .delete('/:id', ({ params: { id } }) => deleteUser(id))
