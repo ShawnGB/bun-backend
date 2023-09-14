@@ -142,13 +142,18 @@ const config = {
         "fromEnvVar": null,
         "value": "darwin-arm64",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "debian-openssl-1.1.x"
       }
     ],
     "previewFeatures": [],
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null
+    "rootEnvPath": "../../../.env",
+    "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../..",
   "clientVersion": "5.3.0",
@@ -166,8 +171,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "Z2VuZXJhdG9yIGNsaWVudCB7CiAgcHJvdmlkZXIgPSAicHJpc21hLWNsaWVudC1qcyIKICBvdXRwdXQgICA9ICIuL2dlbmVyYXRlZC9jbGllbnQiCn0KCmRhdGFzb3VyY2UgZGIgewogIHByb3ZpZGVyID0gInBvc3RncmVzcWwiCiAgdXJsICAgICAgPSBlbnYoIkRBVEFCQVNFX1VSTCIpCn0KCm1vZGVsIFVzZXIgewogIGlkICAgICAgICAgICBTdHJpbmcgICBAaWQgQGRlZmF1bHQodXVpZCgpKQogIGZpcnN0TmFtZSAgICBTdHJpbmcKICBsYXN0TmFtZSAgICAgU3RyaW5nCiAgdXNlck5hbWUgICAgIFN0cmluZyAgIEB1bmlxdWUKICBlbWFpbCAgICAgICAgU3RyaW5nICAgQHVuaXF1ZQogIHN1bW1hcnkgICAgICBTdHJpbmc/CiAgcHJvZmlsZUltYWdlIFN0cmluZz8KICBwYXNzd29yZCAgICAgU3RyaW5nCiAgaXNWZXJpZmllZCAgIEJvb2xlYW4gIEBkZWZhdWx0KGZhbHNlKQogIGNyZWF0ZWRBdCAgICBEYXRlVGltZSBAZGVmYXVsdChub3coKSkKICB1cGRhdGVkQXQgICAgRGF0ZVRpbWUgQHVwZGF0ZWRBdAp9Cg==",
-  "inlineSchemaHash": "b3feac704425f6077c598e65d0c2f09af7c2c2c63721970632d50a7bc3fa16a3",
+  "inlineSchema": "Z2VuZXJhdG9yIGNsaWVudCB7CiAgcHJvdmlkZXIgICAgICA9ICJwcmlzbWEtY2xpZW50LWpzIgogIG91dHB1dCAgICAgICAgPSAiLi9nZW5lcmF0ZWQvY2xpZW50IgogIGJpbmFyeVRhcmdldHMgPSBbIm5hdGl2ZSIsICJkZWJpYW4tb3BlbnNzbC0xLjEueCJdCn0KCmRhdGFzb3VyY2UgZGIgewogIHByb3ZpZGVyID0gInBvc3RncmVzcWwiCiAgdXJsICAgICAgPSBlbnYoIkRBVEFCQVNFX1VSTCIpCn0KCm1vZGVsIFVzZXIgewogIGlkICAgICAgICAgICBTdHJpbmcgICBAaWQgQGRlZmF1bHQodXVpZCgpKQogIGZpcnN0TmFtZSAgICBTdHJpbmcKICBsYXN0TmFtZSAgICAgU3RyaW5nCiAgdXNlck5hbWUgICAgIFN0cmluZyAgIEB1bmlxdWUKICBlbWFpbCAgICAgICAgU3RyaW5nICAgQHVuaXF1ZQogIHN1bW1hcnkgICAgICBTdHJpbmc/CiAgcHJvZmlsZUltYWdlIFN0cmluZz8KICBwYXNzd29yZCAgICAgU3RyaW5nCiAgaXNWZXJpZmllZCAgIEJvb2xlYW4gIEBkZWZhdWx0KGZhbHNlKQogIGNyZWF0ZWRBdCAgICBEYXRlVGltZSBAZGVmYXVsdChub3coKSkKICB1cGRhdGVkQXQgICAgRGF0ZVRpbWUgQHVwZGF0ZWRBdAp9Cg==",
+  "inlineSchemaHash": "0803a5a07463e9f59e64fbff79e911941a977195a4ce2db86b78cc687be14e61",
   "noEngine": false
 }
 
@@ -207,6 +212,10 @@ Object.assign(exports, Prisma)
 // file annotations for bundling tools to include these files
 path.join(__dirname, "libquery_engine-darwin-arm64.dylib.node");
 path.join(process.cwd(), "prisma/generated/client/libquery_engine-darwin-arm64.dylib.node")
+
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-debian-openssl-1.1.x.so.node");
+path.join(process.cwd(), "prisma/generated/client/libquery_engine-debian-openssl-1.1.x.so.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "prisma/generated/client/schema.prisma")
