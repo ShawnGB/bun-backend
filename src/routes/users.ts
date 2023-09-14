@@ -1,7 +1,6 @@
 import { Elysia, t } from 'elysia';
 import {
   getAllUsers,
-  createUser,
   getUser,
   updateUser,
   deleteUser,
@@ -13,24 +12,14 @@ const users = new Elysia().group('users', (app) =>
     .get('/', () => getAllUsers())
 
     // get a user by id
-    .get('/:id', ({ params: { id } }) => getUser(id))
-
-    // create an new user
-    .post('/signup', ({ body }) => createUser(body), {
-      body: t.Object({
-        firstName: t.String(),
-        lastName: t.String(),
-        email: t.String(),
-        password: t.String(),
-        userName: t.String(),
-        summary: t.Optional(t.String()),
-        profileImage: t.Optional(t.String()),
-      }),
+    .get('/:id', ({ params: { id } }) => getUser(id), {
+      params: t.Object({ id: t.String() }),
     })
 
     // update a user
-    .patch('/:id', ({ params: { id }, body }) => updateUser(id, body), {
+    .patch('/:id', ({ body }) => updateUser(body), {
       body: t.Object({
+        id: t.String(),
         firstName: t.Optional(t.String()),
         lastName: t.Optional(t.String()),
         email: t.Optional(t.String()),

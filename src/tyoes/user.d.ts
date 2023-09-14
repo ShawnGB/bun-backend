@@ -9,6 +9,7 @@ interface UserCreateBody {
 }
 
 interface UserUpdateBody {
+  id: string;
   firstName?: string;
   lastName?: string;
   email?: string;
