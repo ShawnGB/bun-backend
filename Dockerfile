@@ -10,6 +10,7 @@ RUN bun install --production
 COPY src src
 COPY tsconfig.json .
 COPY prisma prisma
+COPY .env .env
 
 # COPY public public
 
