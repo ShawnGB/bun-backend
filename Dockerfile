@@ -1,3 +1,4 @@
+# syntax = docker/dockerfile:1.2
 FROM oven/bun
 
 WORKDIR /app
@@ -8,10 +9,12 @@ COPY bun.lockb .
 COPY /etc/secrets/env .env
 
 RUN bun install --production
+RUN --mount=type=secret,id=_env,dst=/etc/secrets/.env cat /etc/secrets/.env
 
 COPY src src
 COPY tsconfig.json .
 COPY prisma prisma
+COPY /etc/secrets/.env ./
 
 # COPY public public
 
