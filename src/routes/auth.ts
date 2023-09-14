@@ -3,6 +3,7 @@ import { createUser, login, validateUser } from '../controllers/auth';
 
 const auth = new Elysia().group('auth', (app) =>
   app
+
     // create an new user
     .post('/signup', ({ body }) => createUser(body), {
       body: t.Object({
@@ -17,7 +18,7 @@ const auth = new Elysia().group('auth', (app) =>
     })
 
     .post('/validate', () => validateUser())
-    .post('/login', ({ body }) => login(body), {
+    .post('/login', ({ body, set }) => 'login', {
       body: t.Object({
         email: t.String(),
         password: t.String(),

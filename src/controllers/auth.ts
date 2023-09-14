@@ -1,8 +1,16 @@
-import { prisma } from '../lib/prisma';
-import { errorResponse } from '../utils/responses';
-import { checkUserBody } from '../utils/validations';
+import { prisma } from '~/libs/prisma';
+import { errorResponse } from '~/utils/responses';
+import { checkUserBody } from '~/utils/validations';
 
-const login = async ({ email, password }: LoginBody) => {
+type LoginBody = {
+  body: { email: string; password: string };
+  set: any;
+  jwt: any;
+  setCookie: any;
+};
+
+const login = async ({ body, set, jwt, setCookie }: LoginBody) => {
+  const { email, password } = body;
   const user = await prisma.user.findUnique({
     where: { email },
   });
@@ -25,6 +33,11 @@ const createUser = async (userBody: UserCreateBody) => {
   if (bodyError) return bodyError;
 
   const hash = await Bun.password.hash(userBody.password);
+
+  // TODO add image upload and processing e.g. ...
+  // const emailHash = md5hash(email);
+  // const profileImage = `https://www.gravatar.com/avatar/${emailHash}?d=identicon`;
+
   const user = await prisma.user.create({
     data: { ...userBody, password: hash },
   });
