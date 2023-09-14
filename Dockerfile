@@ -10,7 +10,7 @@ RUN bun install --production
 COPY src src
 COPY tsconfig.json .
 COPY prisma prisma
-COPY .env.local .env.local
+
 # COPY public public
 
 ENV NODE_ENV production
