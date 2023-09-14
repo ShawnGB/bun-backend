@@ -15,7 +15,7 @@ COPY prisma prisma
 
 RUN --mount=type=secret,id=_env,dst=/etc/secrets/.env cp /etc/secrets/.env .env
 
-RUN bun run env
+
 
 ENV NODE_ENV production
 CMD ["bun", "src/index.ts"]
