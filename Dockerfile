@@ -5,7 +5,7 @@ WORKDIR /app
 COPY package.json .
 COPY bun.lockb .
 # Copy the .env file from Render's secret file location to your working directory
-COPY /etc/secrets/.env ./
+COPY /etc/secrets/env .env
 
 RUN bun install --production
 
