@@ -16,11 +16,11 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 5.3.0
+ * Prisma Client JS version: 5.3.1
  * Query Engine version: 2804dc98259d2ea960602aca6b8e7fdc03c1758f
  */
 Prisma.prismaVersion = {
-  client: "5.3.0",
+  client: "5.3.1",
   engine: "2804dc98259d2ea960602aca6b8e7fdc03c1758f"
 }
 
@@ -111,14 +111,88 @@ exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   firstName: 'firstName',
   lastName: 'lastName',
-  userName: 'userName',
+  username: 'username',
   email: 'email',
-  summary: 'summary',
-  profileImage: 'profileImage',
   password: 'password',
-  isVerified: 'isVerified',
+  profilePicture: 'profilePicture',
+  bio: 'bio',
+  location: 'location',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  isVerified: 'isVerified'
+};
+
+exports.Prisma.CourseScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  price: 'price',
+  schedule: 'schedule',
+  location: 'location',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  instructorId: 'instructorId'
+};
+
+exports.Prisma.ReviewScalarFieldEnum = {
+  id: 'id',
+  rating: 'rating',
+  reviewText: 'reviewText',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  courseId: 'courseId',
+  userId: 'userId'
+};
+
+exports.Prisma.EventScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  eventDate: 'eventDate',
+  location: 'location',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+};
+
+exports.Prisma.BookingScalarFieldEnum = {
+  id: 'id',
+  bookingDate: 'bookingDate',
+  status: 'status',
+  totalPrice: 'totalPrice',
+  charityDonation: 'charityDonation',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  courseId: 'courseId',
+  userId: 'userId'
+};
+
+exports.Prisma.BadgeScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  imageUrl: 'imageUrl',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CommunityPostScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  postDate: 'postDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+};
+
+exports.Prisma.CommentScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  commentDate: 'commentDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  communityPostId: 'communityPostId',
+  userId: 'userId'
 };
 
 exports.Prisma.SortOrder = {
@@ -138,7 +212,14 @@ exports.Prisma.NullsOrder = {
 
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Course: 'Course',
+  Review: 'Review',
+  Event: 'Event',
+  Booking: 'Booking',
+  Badge: 'Badge',
+  CommunityPost: 'CommunityPost',
+  Comment: 'Comment'
 };
 
 /**
