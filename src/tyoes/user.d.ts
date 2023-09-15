@@ -4,9 +4,10 @@ interface UserCreateBody {
   email: string;
   password: string;
   username: string; // Change to 'username' to match the new model
-  summary?: string;
-  profileImage?: string;
+  bio?: string;
+  profilePicture?: string;
 }
+
 interface UserUpdateBody {
   id: string;
   firstName?: string;
@@ -14,6 +15,6 @@ interface UserUpdateBody {
   email?: string;
   password?: string;
   username?: string;
-  summary?: string;
-  profileImage?: string;
+  bio?: string;
+  profilePicture?: string;
 }

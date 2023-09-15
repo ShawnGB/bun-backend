@@ -6,7 +6,6 @@ import cors from '@elysiajs/cors';
 
 const app = new Elysia()
   .get('/', () => 'Hello Elysia')
-  .use(cors())
   .use(cookie())
   .use(users)
   .use(auth)
