@@ -2,28 +2,38 @@ import { prisma } from '~/libs/prisma';
 import { errorResponse } from '~/utils/responses';
 import { checkUserBody } from '~/utils/validations';
 
-type LoginBody = {
-  body: { email: string; password: string };
-  set: any;
-  jwt: any;
-  setCookie: any;
-};
-
-const login = async ({ body, set, jwt, setCookie }: LoginBody) => {
+const login = async ({ body, jwt, setCookie }: LoginBody) => {
   const { email, password } = body;
+
   const user = await prisma.user.findUnique({
     where: { email },
+    select: { id: true, email: true, password: true },
   });
 
-  if (!user) return errorResponse('No user found with that email address.');
+  if (!user) return { success: false, message: 'Invalid email or password.' };
 
   const validate = await Bun.password.verify(password, user.password);
 
-  if (!validate) return errorResponse('Invalid password.');
+  if (!validate)
+    return { success: false, message: 'Invalid email or password.' };
+
+  const payload = {
+    id: user.id,
+    email: user.email,
+    expiresIn: '1h',
+  };
+
+  const token = await jwt.sign(payload);
+
+  setCookie('auth_token', token, {
+    httpOnly: true,
+    secure: Bun.env.NODE_ENV === 'production', // Assuming Bun.env.NODE_ENV returns either 'development' or 'production'
+    maxAge: 3600,
+  });
 
   return {
     success: true,
-    data: user,
+    data: { token },
     message: 'User logged in successfully.',
   };
 };
