@@ -9,16 +9,134 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// User model representing platform users
 model User {
-  id           String   @id @default(uuid())
-  firstName    String
-  lastName     String
-  userName     String   @unique
-  email        String   @unique
-  summary      String?
-  profileImage String?
-  password     String
-  isVerified   Boolean  @default(false)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id             String          @id @default(uuid())
+  firstName      String
+  lastName       String
+  username       String          @unique
+  email          String          @unique
+  password       String // Hashed password
+  profilePicture String?
+  bio            String?
+  location       String?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  isVerified     Boolean         @default(false)
+  badges         Badge[]
+  courses        Course[]        @relation("instructor") // Courses created by the user
+  reviews        Review[] // Reviews given by the user
+  events         Event[]         @relation("attendees") // Events attended by the user
+  bookings       Booking[] // Bookings made by the user
+  communityPosts CommunityPost[] // Community posts created by the user
+  comments       Comment[] // Comments made by the user
+  Event          Event[]
 }
+
+// Course model representing courses/workshops/tutoring sessions
+model Course {
+  id           String    @id @default(uuid())
+  title        String
+  description  String
+  price        Float
+  schedule     DateTime
+  location     String
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  instructor   User      @relation("instructor", fields: [instructorId], references: [id]) // Instructor of the course
+  instructorId String // relation scalar field
+  reviews      Review[] // Reviews for the course
+  bookings     Booking[] // Bookings for the course
+}
+
+// Review model representing reviews given by users
+model Review {
+  id         String   @id @default(uuid())
+  rating     Float
+  reviewText String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  course     Course   @relation(fields: [courseId], references: [id]) // Course being reviewed
+  courseId   String // relation scalar field
+  user       User     @relation(fields: [userId], references: [id]) // User who wrote the review
+  userId     String // relation scalar field
+}
+
+// Event model representing events on the platform
+model Event {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  eventDate   DateTime
+  location    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  creator     User     @relation(fields: [userId], references: [id]) // Creator of the event
+  userId      String // relation scalar field
+  attendees   User[]   @relation("attendees") // Users attending the event
+}
+
+// Booking model representing user bookings
+model Booking {
+  id              String   @id @default(uuid())
+  bookingDate     DateTime
+  status          String
+  totalPrice      Float
+  charityDonation Float?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  course          Course   @relation(fields: [courseId], references: [id]) // Course booked
+  courseId        String // relation scalar field
+  user            User     @relation(fields: [userId], references: [id]) // User who made the booking
+  userId          String // relation scalar field
+}
+
+// Badge model representing user badges
+model Badge {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  users       User[] // Users who have earned this badge
+}
+
+// CommunityPost model representing community posts
+model CommunityPost {
+  id        String    @id @default(uuid())
+  content   String
+  postDate  DateTime
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  creator   User      @relation(fields: [userId], references: [id]) // User who created the post
+  userId    String // relation scalar field
+  comments  Comment[] // Comments on the post
+}
+
+// Comment model representing comments on posts
+model Comment {
+  id              String        @id @default(uuid())
+  content         String
+  commentDate     DateTime
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  communityPost   CommunityPost @relation(fields: [communityPostId], references: [id]) // Post being commented on
+  communityPostId String // relation scalar field
+  user            User          @relation(fields: [userId], references: [id]) // User who wrote the comment
+  userId          String // relation scalar field
+}
+
+// model User {
+//   id           String   @id @default(uuid())
+//   firstName    String
+//   lastName     String
+//   userName     String   @unique
+//   email        String   @unique
+//   summary      String?
+//   profileImage String?
+//   password     String
+//   isVerified   Boolean  @default(false)
+//   createdAt    DateTime @default(now())
+//   updatedAt    DateTime @updatedAt
+// }

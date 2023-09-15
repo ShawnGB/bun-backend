@@ -1,5 +1,4 @@
 import { prisma } from '../libs/prisma';
-import { errorResponse } from '../utils/responses';
 import { checkId, checkUserBody } from '../utils/validations';
 
 const getAllUsers = () => prisma.user.findMany();

@@ -24,7 +24,7 @@ export const checkId = (id: string) => {
   return null;
 };
 
-export const checkUserBody = async (body: UserUpdateBody | UserCreateBody) => {
+export const checkUserBody = async (body: Partial<User>) => {
   if (body.email) {
     if (!isValidEmail(body.email)) {
       return errorResponse('Invalid email address.');
@@ -35,7 +35,7 @@ export const checkUserBody = async (body: UserUpdateBody | UserCreateBody) => {
     }
   }
 
-  if (body.userName && (await doesUserExist('userName', body.userName))) {
+  if (body.username && (await doesUserExist('userName', body.username))) {
     return errorResponse('User name already in use.');
   }
 

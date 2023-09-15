@@ -2,16 +2,11 @@ import { Elysia } from 'elysia';
 import { users } from './routes/users';
 import { auth } from './routes/auth';
 import { cookie } from '@elysiajs/cookie';
-import { jwt } from '@elysiajs/jwt';
+import cors from '@elysiajs/cors';
 
 const app = new Elysia()
   .get('/', () => 'Hello Elysia')
-  .use(
-    jwt({
-      name: 'jwt',
-      secret: Bun.env.JWT_SECRET!,
-    })
-  )
+  .use(cors())
   .use(cookie())
   .use(users)
   .use(auth)

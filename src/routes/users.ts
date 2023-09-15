@@ -23,9 +23,9 @@ const users = new Elysia().group('users', (app) =>
         firstName: t.Optional(t.String()),
         lastName: t.Optional(t.String()),
         email: t.Optional(t.String()),
-        userName: t.Optional(t.String()),
-        summary: t.Optional(t.String()),
-        profileImage: t.Optional(t.String()),
+        username: t.Optional(t.String()),
+        bio: t.Optional(t.String()),
+        profilePicture: t.Optional(t.String()),
       }),
     })
 

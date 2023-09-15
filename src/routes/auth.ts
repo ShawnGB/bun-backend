@@ -18,12 +18,11 @@ const auth = new Elysia().group('auth', (app) =>
         lastName: t.String(),
         email: t.String(),
         password: t.String(),
-        userName: t.String(),
-        summary: t.Optional(t.String()),
-        profileImage: t.Optional(t.String()),
+        username: t.String(), // Change userName to username
+        bio: t.Optional(t.String()), // Change summary to bio
+        profilePicture: t.Optional(t.String()),
       }),
     })
-
     .post('/validate', () => validateUser())
     .post(
       '/login',
