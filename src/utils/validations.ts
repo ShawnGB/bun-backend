@@ -10,7 +10,7 @@ export const isValidEmail = (email: string): boolean => {
 };
 
 export const doesUserExist = async (
-  key: 'email' | 'userName',
+  key: 'email' | 'username',
   value: string
 ) => {
   return prisma.user.findUnique({
@@ -35,7 +35,7 @@ export const checkUserBody = async (body: Partial<User>) => {
     }
   }
 
-  if (body.username && (await doesUserExist('userName', body.username))) {
+  if (body.username && (await doesUserExist('username', body.username))) {
     return errorResponse('User name already in use.');
   }
 
