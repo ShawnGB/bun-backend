@@ -12,9 +12,7 @@ const users = new Elysia().group('users', (app) =>
     .get('/', () => getAllUsers())
 
     // get a user by id
-    .get('/:id', ({ params: { id } }) => getUser(id), {
-      params: t.Object({ id: t.String() }),
-    })
+    .get('/:id', ({ params: { id } }) => getUser(id))
 
     // update a user
     .patch('/:id', ({ body }) => updateUser(body), {
